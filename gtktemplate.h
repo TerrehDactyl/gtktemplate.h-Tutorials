@@ -2,6 +2,10 @@
 #include <gdk/gdkkeysyms.h>
 /* file chooser functions, menu functions
 */
+ struct variables
+{
+	gpointer pointer[4];
+}location;
 
 #define arraysize(x)  (sizeof(x) / sizeof((x)[0]))
 
@@ -12,9 +16,9 @@ void show_and_destroy( GtkWidget *window)
 	gtk_main();//gtk main, this is the main loop of GTK
 }
 
-void button_connect_callback(GtkWidget *button, gchar *action, void *button_callback, gpointer data) 
+void button_connect_callback(GtkWidget *button, gchar *action, void *button_callback, gpointer data[]) 
 {
-	g_signal_connect(button, action, G_CALLBACK(button_callback), data);
+	g_signal_connect(button, action, G_CALLBACK(button_callback), &data);
 }
 
 
@@ -104,7 +108,7 @@ GtkWidget *createlabels(gchar *labeltext[], size_t arraylen)
 return grid;
 }
 
-GtkWidget *createsinglesizegrid(gchar *labels[], void *callback[], int rows, int columns)  
+GtkWidget *createsinglesizegrid(gchar *labels[], void *callback[], gpointer data[], int rows, int columns)  
 {
 	GtkWidget *grid = gtk_grid_new(); 
 	int pos = 0;
@@ -114,7 +118,7 @@ GtkWidget *createsinglesizegrid(gchar *labels[], void *callback[], int rows, int
 		for (int j=0; j < columns; j++) //for loop for the columns
 		{
 		GtkWidget *button = gtk_button_new_with_label(labels[pos]); //sets each button label to the respective button 
-		button_connect_callback(button, "clicked",callback[pos],NULL); //attaches the button to the respective callback
+		button_connect_callback(button, "clicked",callback[pos], &data[i]); //attaches the button to the respective callback
 		gtk_grid_attach(GTK_GRID(grid), button, j, i, 1, 1); //sets the defaults for creating each table button
 		gtk_widget_set_size_request(button, 70, 30); //sets the size of the buttons
 		pos++; //changes the position 
@@ -210,4 +214,23 @@ GtkWidget *createmenu(gchar *headers, gchar *menu_array[], int arraylen, void *c
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(root_menu), menu);
 	}
 	return root_menu;
+}
+
+void createfilechoosers(gpointer data)
+{
+GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
+gint res;
+GtkWindow *new_window;
+new_window = (GtkWindow *)gtk_window_new(GTK_WINDOW_POPUP);
+GtkWidget *filechoosers = gtk_file_chooser_dialog_new ("Open File", new_window, action, ("_Cancel"), GTK_RESPONSE_CANCEL, ("_Open"), GTK_RESPONSE_ACCEPT, NULL);
+
+res = gtk_dialog_run (GTK_DIALOG (filechoosers));
+if (res == GTK_RESPONSE_ACCEPT)
+  {
+   GtkFileChooser *chooser = GTK_FILE_CHOOSER (filechoosers);
+
+   location.pointer[0] = gtk_file_chooser_get_filename (chooser);
+   g_print("%s\n", location.pointer[0]);
+  }
+gtk_widget_destroy (filechoosers);
 }
