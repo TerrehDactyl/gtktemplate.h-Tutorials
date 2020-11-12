@@ -2,9 +2,9 @@
 #include <gdk/gdkkeysyms.h>
 /* file chooser functions, menu functions
 */
- struct variables
+typedef struct variables
 {
-	gpointer pointer[4];
+	char *pointer[4];
 }location;
 
 #define arraysize(x)  (sizeof(x) / sizeof((x)[0]))
@@ -16,9 +16,9 @@ void show_and_destroy( GtkWidget *window)
 	gtk_main();//gtk main, this is the main loop of GTK
 }
 
-void button_connect_callback(GtkWidget *button, gchar *action, void *button_callback, gpointer data[]) 
+void button_connect_callback(GtkWidget *button, gchar *action, void *button_callback, location *data) 
 {
-	g_signal_connect(button, action, G_CALLBACK(button_callback), &data);
+	g_signal_connect(button, action, G_CALLBACK(button_callback), data);
 }
 
 
@@ -108,17 +108,17 @@ GtkWidget *createlabels(gchar *labeltext[], size_t arraylen)
 return grid;
 }
 
-GtkWidget *createsinglesizegrid(gchar *labels[], void *callback[], gpointer data[], int rows, int columns)  
+GtkWidget *createsinglesizegrid(gchar *labels[], void *callback[], location *data, int rows, int columns)  
 {
 	GtkWidget *grid = gtk_grid_new(); 
 	int pos = 0;
-
+g_print("%s from grid function \n", data->pointer[4]);
 	for (int i=0; i < rows; i++) //for loop for the rows
 	{
 		for (int j=0; j < columns; j++) //for loop for the columns
 		{
 		GtkWidget *button = gtk_button_new_with_label(labels[pos]); //sets each button label to the respective button 
-		button_connect_callback(button, "clicked",callback[pos], &data[i]); //attaches the button to the respective callback
+		button_connect_callback(button, "clicked",callback[pos], data); //attaches the button to the respective callback
 		gtk_grid_attach(GTK_GRID(grid), button, j, i, 1, 1); //sets the defaults for creating each table button
 		gtk_widget_set_size_request(button, 70, 30); //sets the size of the buttons
 		pos++; //changes the position 
@@ -216,7 +216,7 @@ GtkWidget *createmenu(gchar *headers, gchar *menu_array[], int arraylen, void *c
 	return root_menu;
 }
 
-void createfilechoosers(gpointer data)
+void createfilechoosers(GtkButton *button, location* data)
 {
 GtkFileChooserAction action = GTK_FILE_CHOOSER_ACTION_OPEN;
 gint res;
@@ -229,8 +229,9 @@ if (res == GTK_RESPONSE_ACCEPT)
   {
    GtkFileChooser *chooser = GTK_FILE_CHOOSER (filechoosers);
 
-   location.pointer[0] = gtk_file_chooser_get_filename (chooser);
-   g_print("%s\n", location.pointer[0]);
+   data->pointer[4] = gtk_file_chooser_get_filename (chooser);
+   
+   g_print("%s\n", data->pointer[4]);
   }
 gtk_widget_destroy (filechoosers);
 }
