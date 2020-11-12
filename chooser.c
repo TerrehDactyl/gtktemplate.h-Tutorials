@@ -13,8 +13,8 @@ gtk_init(&argc, &argv); //starting gtk
 
 location data;
 
-data.pointer[4] = "test";
-g_print("%s\n", data.pointer[4]);
+data = (location){.pointer = {"test"}, .current = 0, .max = 4};
+g_print("pointer is %s \n", data.pointer[0]);
 
 GtkWidget *window = createwindow("tportman", GTK_WIN_POS_CENTER);
 GtkWidget *chooserbox = createsinglesizegrid(chooserlabels, choosercallbacks, &data, 4,1);
@@ -30,5 +30,6 @@ show_and_destroy(window); //shows all widgets, connects the callback for the win
 
 void opencbk(GtkButton *button, location* data)
 {
-	g_print("%s from second callback", data->pointer[4]);
+	for(int i = 0; i <data->max; i++)
+	g_print("%s from second callback\n", data->pointer[i]);
 }
