@@ -62,7 +62,7 @@ GtkWidget *createwindow(char * title, GtkWindowPosition position)
 	return widget;
 }
 
-GtkWidget *create_custom_window(char * title, GtkWindowType type, GtkWindowPosition position, int width, int height, int border) 
+GtkWidget *create_custom_window(char * title, GtkWindowType type, GtkWindowPosition position, int width, int height) 
 {
 	GtkWidget *widget = gtk_window_new(type); //creates toplevel window
 	gtk_window_set_title(GTK_WINDOW(widget), title); //sets a window title 
@@ -71,11 +71,6 @@ GtkWidget *create_custom_window(char * title, GtkWindowType type, GtkWindowPosit
 	if(height && width)
 	{
 		gtk_window_set_default_size ((GtkWindow *)widget, width, height);
-	}
-
-	if(border)
-	{
-		gtk_container_set_border_width(GTK_CONTAINER(widget), border); //sets the border size of the window
 	}
 	return widget;
 }
