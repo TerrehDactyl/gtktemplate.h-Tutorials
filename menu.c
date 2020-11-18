@@ -16,7 +16,7 @@ void *menu_callbacks[] = {callback, callback, callback};
 
 gtk_init(&argc, &argv); //starting gtk 
 
-GtkWidget *window = createwindow("Menu", GTK_WIN_POS_CENTER);
+GtkWidget *window = createwindow("Menu", GTK_WIN_POS_CENTER, "test.png");
 GtkWidget *menu_bar = gtk_menu_bar_new ();
 GtkWidget *root_menu;
 
