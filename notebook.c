@@ -9,7 +9,7 @@ int main( int argc, char *argv[] )
 
     gtk_init (&argc, &argv);
     
-    window = createwindow("notebook", GTK_WINDOW_TOPLEVEL);
+    window = createwindow("notebook", GTK_WIN_POS_CENTER, "test.png");
     notebook = createnotebook(window);
 
     for(int i = 0; i < label_size; i++)
@@ -18,7 +18,6 @@ int main( int argc, char *argv[] )
     													 // can return the frame widget 
     													 //if you want to attach anything to it
     }
-    
     show_and_destroy(window);
 }
 
