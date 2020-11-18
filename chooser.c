@@ -14,13 +14,12 @@ gtk_init(&argc, &argv); //starting gtk
 location data;
 
 data = (location){.pointer = {"test"}, .current = 0, .max = 4};
-g_print("pointer is %s \n", data.pointer[0]);
 
-GtkWidget *window = createwindow("chooser", GTK_WIN_POS_CENTER);
+GtkWidget *window = createwindow("chooser", GTK_WIN_POS_CENTER, "test.png");
 GtkWidget *chooserbox = createsinglesizegrid(chooserlabels, choosercallbacks, &data, 4,1);
 GtkWidget *show_button = createsinglesizegrid(show_label, show_cbk, &data, 1,1);
-
 GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1);
+
 gtk_container_add(GTK_CONTAINER(window), vbox); //adds the vbox to the window 
 gtk_box_pack_start(GTK_BOX(vbox),  chooserbox, FALSE, FALSE, 0); //packs the display into the vbox
 gtk_box_pack_start(GTK_BOX(vbox),  show_button, FALSE, FALSE, 0); //packs the display into the vbox
