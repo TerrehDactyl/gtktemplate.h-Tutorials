@@ -1,5 +1,5 @@
 #include "gtktemplate.h"
-//gcc -Wall -g gtkcreatebuttons.c -o gtkcreatebuttons `pkg-config --cflags --libs gtk+-3.0`
+//gcc -Wall -g buttons.c -o buttons `pkg-config --cflags --libs gtk+-3.0`
 void cbk1(); 
 void cbk2();
 void cbk3();
