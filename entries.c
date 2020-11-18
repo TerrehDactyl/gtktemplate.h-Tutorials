@@ -1,5 +1,5 @@
 #include "gtktemplate.h"
-
+//compile with gcc -Wall -g entries.c -o entries `pkg-config --cflags --libs gtk+-3.0`
 void print_entries();
 
 gchar *labels[] = {"entry 1", "entry 2", "entry 3"};                       // creates labels for the entrys                               //creates callback array
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
 	gtk_init(&argc, &argv);                                                        //initialize gtk
 
-	GtkWidget *window = createwindow("Entries", GTK_WIN_POS_CENTER);           //create window with title entry grid
+	GtkWidget *window = createwindow("Entries", GTK_WIN_POS_CENTER, "test.png");           //create window with title entry grid
 	GtkWidget *entry_labels = createlabels(labels, len);
 	set_spacing(entry_labels, 10,20); 
 	GtkWidget *entrygrid = gtk_grid_new();
