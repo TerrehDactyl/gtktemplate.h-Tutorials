@@ -1,5 +1,5 @@
 #include "gtktemplate.h"
-
+//gcc -Wall -g gtkcreatebuttons.c -o gtkcreatebuttons `pkg-config --cflags --libs gtk+-3.0`
 void cbk1(); 
 void cbk2();
 void cbk3();
@@ -10,8 +10,8 @@ int main(int argc, char *argv[])
 	
 	gtk_init(&argc, &argv); //initialize gtk
 
-	GtkWidget *window = createwindow("button grid", GTK_WIN_POS_CENTER); //create window with title button grid
-	GtkWidget *button_grid = createsinglesizegrid(labels, button_callbacks, 1, 3); //creates a grid and adds the buttons to the grid, the labels to the buttons, and the callbacks to the buttons
+	GtkWidget *window = createwindow("button grid", GTK_WIN_POS_CENTER, "test.png"); //create window with title button grid
+	GtkWidget *button_grid = createsinglesizegrid(labels, button_callbacks, NULL, 1, 3); //creates a grid and adds the buttons to the grid, the labels to the buttons, and the callbacks to the buttons
 
 	gtk_container_add(GTK_CONTAINER(window), button_grid); //adds the grid to the window 
 	show_and_destroy(window); //shows the window, creates the callback to destroy the window, and initializes the main loop 
