@@ -53,25 +53,42 @@ void set_spacing(GtkWidget *widget, int colspace, int rowspace)
 	gtk_grid_set_row_spacing(GTK_GRID(widget), rowspace);
 }
 
-GtkWidget *createwindow(char * title, GtkWindowPosition position) 
+GdkPixbuf *createpixbuf(const gchar *filename)
+{
+	GdkPixbuf *pixbuf;
+    GError *error = NULL;
+    pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+	if(!pixbuf) 
+   {
+      fprintf(stderr, "%s\n", error->message);
+      g_error_free(error);
+   }
+   return pixbuf;
+}
+
+GtkWidget *createwindow(char * title, GtkWindowPosition position, const gchar *filename) 
 {
 	GtkWidget *widget = gtk_window_new(GTK_WINDOW_TOPLEVEL); //creates toplevel window
 	gtk_window_set_title(GTK_WINDOW(widget), title); //sets a window title 
 	gtk_window_set_position(GTK_WINDOW(widget), position); //opens the window in the center of the screen
-	gtk_container_set_border_width(GTK_CONTAINER(widget), 5); //sets the border size of the window
+    gtk_window_set_icon(GTK_WINDOW(widget), createpixbuf(filename));
+
 	return widget;
 }
 
-GtkWidget *create_custom_window(char * title, GtkWindowType type, GtkWindowPosition position, int width, int height) 
+
+GtkWidget *create_custom_window(char * title, GtkWindowType type, GtkWindowPosition position, const gchar *filename, int width, int height) 
 {
 	GtkWidget *widget = gtk_window_new(type); //creates toplevel window
 	gtk_window_set_title(GTK_WINDOW(widget), title); //sets a window title 
 	gtk_window_set_position(GTK_WINDOW(widget), position); //opens the window in the center of the screen
-
+	gtk_window_set_icon(GTK_WINDOW(widget), createpixbuf(filename));
+	
 	if(height && width)
 	{
 		gtk_window_set_default_size ((GtkWindow *)widget, width, height);
 	}
+
 	return widget;
 }
 
