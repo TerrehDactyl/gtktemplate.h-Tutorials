@@ -1,5 +1,5 @@
 #include "gtktemplate.h"
-
+//compile with gcc -Wall -g radiobuttons.c -o radiobuttons `pkg-config --cflags --libs gtk+-3.0`
 void cbk1(); 
 void cbk2();
 void cbk3();
@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	size_t len = arraysize(labels);
 	gtk_init(&argc, &argv);                                                        //initialize gtk
 
-	GtkWidget *window = createwindow("button grid", GTK_WIN_POS_CENTER);           //create window with title button grid
+	GtkWidget *window = createwindow("button grid", GTK_WIN_POS_CENTER, "test.png");           //create window with title button grid
 	GtkWidget *radios = createradiobuttons(labels, button_callbacks, len); //creates a grid and adds the buttons to the grid, the labels to the buttons, and the callbacks to the buttons
 
 	gtk_container_add(GTK_CONTAINER(window), radios);                         //adds the grid to the window 
