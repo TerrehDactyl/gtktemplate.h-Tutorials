@@ -7,7 +7,7 @@ int main(int argc, char *argv [])
 
 gtk_init(&argc, &argv); //starting gtk 
 
-GtkWidget *window = createwindow("progress bar", GTK_WIN_POS_CENTER);
+GtkWidget *window = createwindow("progress bar", GTK_WIN_POS_CENTER, "test.png");
 GtkWidget *progress = create_progress_bar(fill_progress);
 gtk_container_add(GTK_CONTAINER(window), progress); //adds the vbox to the window 
 
