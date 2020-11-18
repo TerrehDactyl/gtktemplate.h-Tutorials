@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	set_spacing(entry_labels, 10,20); 
 	GtkWidget *entrygrid = gtk_grid_new();
 	create_entries(len, entries, entrygrid);
-	GtkWidget *button = createsinglesizegrid(button_label, callback, 1, 1);
+	GtkWidget *button = createsinglesizegrid(button_label, callback, NULL, 1, 1);
 
 	GtkWidget *entrybox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 1); //creates a horizontal box without autosizing
 	GtkWidget *buttonbox =  gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
