@@ -9,7 +9,7 @@ int main(int argc, char *argv [])
 
 	gtk_init(&argc, &argv); //starting gtk 
 
-	GtkWidget *window = createwindow("tportman", GTK_WIN_POS_CENTER);
+	GtkWidget *window = createwindow("tportman", GTK_WIN_POS_CENTER, "test.png");
 	GtkComboBox *combo_box = create_combobox(combo_labels,  combo_size, on_changed);
 	gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(combo_box));  
 
