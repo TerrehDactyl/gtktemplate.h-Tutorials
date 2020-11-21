@@ -275,3 +275,23 @@ GtkWidget *create_progress_bar(void *callback)
 	g_timeout_add (500, callback, GTK_PROGRESS_BAR (progress_bar));
 	return progress_bar;
 }
+
+GtkWidget *create_drawing_area(void *callback, gpointer image, int height, int width)
+{
+	GtkWidget *widget = gtk_drawing_area_new();
+	if(height && width)
+	{
+		gtk_widget_set_size_request(widget, width, height); //sets the size of the buttons
+	}
+	g_signal_connect (G_OBJECT (widget), "draw", G_CALLBACK (callback), image);
+
+	return widget;
+}
+
+void draw_image(GtkWidget *widget, cairo_t *cr, gpointer user_data)
+{
+	const char *data = (const char *) user_data;
+	GdkPixbuf *pixbuf = createpixbuf(data); 
+	gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
+	cairo_paint (cr);
+}
