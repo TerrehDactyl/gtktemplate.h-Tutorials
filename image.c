@@ -1,9 +1,6 @@
 #include "gtktemplate.h"
 #include <cairo.h>
 //compile with gcc -Wall -g image.c -o image `pkg-config --cflags --libs gtk+-3.0`
-GtkWidget *create_drawing_area(void *callback, gpointer image, int height, int width);
-void draw_image(GtkWidget *widget, cairo_t *cr, gpointer user_data);
-
 int main(int argc, char *argv[])
 {
 	gtk_init(&argc, &argv); //initializes GTK
